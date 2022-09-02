@@ -1,9 +1,17 @@
-const getPalanca = (req, res) => {
-  res.send("<h1>Hello</h1>");
+const getPalanca = async (req, res) => {
+  try {
+    res.status(200).json({ msg: "recieved" });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-const sendPalanca = (req, res) => {
-  res.send("Fak ya");
+const sendPalanca = async (req, res) => {
+  res.json({ msg: "sent" });
 };
 
-module.exports = { getPalanca, sendPalanca };
+const login = async (req, res) => {
+  res.json({ msg: "logined" });
+};
+
+module.exports = { getPalanca, sendPalanca, login };
