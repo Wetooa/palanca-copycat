@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import allStudents from "../../constants/students";
 import {
@@ -8,6 +8,7 @@ import {
   TextField,
   MenuItem,
   Select,
+  Autocomplete,
 } from "@mui/material";
 import StudentFrame from "./components/StudentFrame";
 import { Container } from "@mui/system";
@@ -15,6 +16,7 @@ import { Container } from "@mui/system";
 function HomePage() {
   const [filteredStudents, setFilteredStudents] = useState(allStudents);
   const [section, setSection] = useState("all");
+  const [studentSearch, setStudentSearch] = useState("");
 
   return (
     <Box
@@ -38,7 +40,7 @@ function HomePage() {
           justifyContent: "center",
         }}
       >
-        <Typography variant="h2" sx={{ fontWeight: "bold" }}>
+        <Typography variant="h3" sx={{ fontWeight: "bold" }}>
           Dear kōhai,
         </Typography>
         <Typography variant="p">
@@ -58,21 +60,29 @@ function HomePage() {
           justifyContent: "center",
         }}
       >
-        <TextField
-          type="text"
+        <Autocomplete
           sx={{ flexGrow: 2 }}
-          placeholder="sige kinsa man..."
+          limitTags={10}
+          options={filteredStudents}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Student"
+              placeholder="sige kinsa man"
+            />
+          )}
         />
         <Select
           label="Section"
           sx={{ flexGrow: 1 }}
+          defaultValue={"all"}
           value={section}
           onChange={(e) => setSection(e.target.value)}
         >
-          <MenuItem value="All">All Section</MenuItem>
-          <MenuItem value="A">Block A</MenuItem>
-          <MenuItem value="B">Block B</MenuItem>
-          <MenuItem value="C">Block C</MenuItem>
+          <MenuItem value="all">All Section</MenuItem>
+          <MenuItem value="a">Block A</MenuItem>
+          <MenuItem value="b">Block B</MenuItem>
+          <MenuItem value="c">Block C</MenuItem>
         </Select>
       </Box>
       <Box sx={{ paddingTop: 10, alignContent: "center" }}>
